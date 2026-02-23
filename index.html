@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investing Wisdom Quotes - 100+ Quotes from Buffett, Munger, Dalio &amp; More</title>
+    <meta name="description" content="A curated collection of 100+ investing wisdom quotes from Warren Buffett, Charlie Munger, Ray Dalio, Benjamin Graham, Howard Marks, and other master investors. Searchable by topic.">
+    <meta property="og:title" content="Investing Wisdom Quotes - Buffett, Munger, Dalio & More">
+    <meta property="og:description" content="100+ curated investing quotes from the world's greatest investors, organized by topic and fully searchable.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://henu-wang.github.io/investing-wisdom-quotes/">
+    <link rel="canonical" href="https://henu-wang.github.io/investing-wisdom-quotes/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#1c1917',accent:'#d97706',card:'#fefce8'}}}}</script>
+    <style>
+        .quote-card { transition: transform 0.15s; }
+        .quote-card:hover { transform: scale(1.01); }
+        .tag-btn.active { background: #d97706; color: white; border-color: #d97706; }
+    </style>
+</head>
+<body class="bg-stone-50 text-gray-800 min-h-screen flex flex-col">
+    <header class="bg-primary text-white">
+        <nav class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-lg font-bold">Investing Wisdom</a>
+            <a href="https://keeprule.com/en/masters" class="text-sm text-amber-200 hover:text-white" target="_blank" rel="noopener">Full collection at KeepRule &rarr;</a>
+        </nav>
+    </header>
+
+    <section class="bg-primary text-white pb-12 pt-8">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold mb-3">Investing Wisdom Quotes</h1>
+            <p class="text-stone-300 max-w-xl mx-auto mb-6">100+ curated quotes from the world's greatest investors. Search, filter by topic, and find wisdom for every investment decision.</p>
+            <div class="max-w-lg mx-auto">
+                <input type="text" id="searchInput" placeholder="Search quotes, authors, or topics..." oninput="filterQuotes()" class="w-full border-0 rounded-xl px-5 py-3 text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-accent shadow-lg">
+            </div>
+        </div>
+    </section>
+
+    <main class="flex-1 max-w-5xl mx-auto px-4 py-8 w-full">
+        <div class="flex flex-wrap gap-2 mb-8" id="tagFilters">
+            <button onclick="filterByTag('all')" class="tag-btn active text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="all">All</button>
+            <button onclick="filterByTag('value')" class="tag-btn text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="value">Value Investing</button>
+            <button onclick="filterByTag('risk')" class="tag-btn text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="risk">Risk</button>
+            <button onclick="filterByTag('temperament')" class="tag-btn text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="temperament">Temperament</button>
+            <button onclick="filterByTag('compounding')" class="tag-btn text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="compounding">Compounding</button>
+            <button onclick="filterByTag('moat')" class="tag-btn text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="moat">Moats</button>
+            <button onclick="filterByTag('mistakes')" class="tag-btn text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="mistakes">Learning from Mistakes</button>
+            <button onclick="filterByTag('mental-models')" class="tag-btn text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="mental-models">Mental Models</button>
+            <button onclick="filterByTag('market')" class="tag-btn text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="market">Market Psychology</button>
+            <button onclick="filterByTag('patience')" class="tag-btn text-xs border border-gray-300 rounded-full px-3 py-1 transition" data-tag="patience">Patience</button>
+        </div>
+
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-sm text-gray-500"><span id="quoteCount">0</span> quotes</p>
+            <select id="authorFilter" onchange="filterQuotes()" class="text-sm border border-gray-300 rounded-lg px-2 py-1">
+                <option value="all">All Authors</option>
+                <option value="Warren Buffett">Warren Buffett</option>
+                <option value="Charlie Munger">Charlie Munger</option>
+                <option value="Benjamin Graham">Benjamin Graham</option>
+                <option value="Ray Dalio">Ray Dalio</option>
+                <option value="Howard Marks">Howard Marks</option>
+                <option value="Peter Lynch">Peter Lynch</option>
+                <option value="Seth Klarman">Seth Klarman</option>
+                <option value="Philip Fisher">Philip Fisher</option>
+                <option value="John Templeton">John Templeton</option>
+            </select>
+        </div>
+
+        <div id="quotesGrid" class="grid md:grid-cols-2 gap-4"></div>
+
+        <div class="mt-12 bg-amber-50 rounded-xl p-8 border border-amber-200 text-center">
+            <h2 class="text-xl font-bold mb-2">Go Deeper with KeepRule</h2>
+            <p class="text-gray-600 text-sm mb-4">These quotes are just the surface. KeepRule organizes investment principles into actionable decision frameworks, with detailed context for each rule.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="https://keeprule.com/en/masters" class="inline-block bg-accent text-white px-5 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition" target="_blank" rel="noopener">Browse Master Investors</a>
+                <a href="https://keeprule.com/en/scenarios" class="inline-block border border-accent text-accent px-5 py-2 rounded-lg text-sm font-medium hover:bg-amber-100 transition" target="_blank" rel="noopener">Decision Scenarios</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-200 py-6 mt-8">
+        <div class="max-w-5xl mx-auto px-4 text-center text-sm text-gray-400">
+            <p>Curated with care. Explore the full collection of master investors' principles at <a href="https://keeprule.com/en/" class="text-accent hover:underline" target="_blank" rel="noopener">KeepRule</a></p>
+        </div>
+    </footer>
+
+    <script>
+    const quotes = [
+        // Warren Buffett (30)
+        {q:"Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1.",a:"Warren Buffett",t:["risk","value"]},
+        {q:"Be fearful when others are greedy, and greedy when others are fearful.",a:"Warren Buffett",t:["temperament","market"]},
+        {q:"It's far better to buy a wonderful company at a fair price than a fair company at a wonderful price.",a:"Warren Buffett",t:["value","moat"]},
+        {q:"Our favorite holding period is forever.",a:"Warren Buffett",t:["patience","compounding"]},
+        {q:"Price is what you pay. Value is what you get.",a:"Warren Buffett",t:["value"]},
+        {q:"The stock market is a device for transferring money from the impatient to the patient.",a:"Warren Buffett",t:["patience","market"]},
+        {q:"Risk comes from not knowing what you're doing.",a:"Warren Buffett",t:["risk","mental-models"]},
+        {q:"Only when the tide goes out do you discover who's been swimming naked.",a:"Warren Buffett",t:["risk","market"]},
+        {q:"Time is the friend of the wonderful company, the enemy of the mediocre.",a:"Warren Buffett",t:["compounding","moat"]},
+        {q:"The most important quality for an investor is temperament, not intellect.",a:"Warren Buffett",t:["temperament"]},
+        {q:"I insist on a lot of time being spent, almost every day, to just sit and think.",a:"Warren Buffett",t:["patience","mental-models"]},
+        {q:"You don't need to be a rocket scientist. Investing is not a game where the guy with the 160 IQ beats the guy with the 130 IQ.",a:"Warren Buffett",t:["temperament"]},
+        {q:"If you aren't willing to own a stock for ten years, don't even think about owning it for ten minutes.",a:"Warren Buffett",t:["patience","value"]},
+        {q:"Wide diversification is only required when investors do not understand what they are doing.",a:"Warren Buffett",t:["risk","mental-models"]},
+        {q:"Chains of habit are too light to be felt until they are too heavy to be broken.",a:"Warren Buffett",t:["compounding","mistakes"]},
+        {q:"In the business world, the rearview mirror is always clearer than the windshield.",a:"Warren Buffett",t:["market","mental-models"]},
+        {q:"Never invest in a business you cannot understand.",a:"Warren Buffett",t:["value","mental-models"]},
+        {q:"The difference between successful people and really successful people is that really successful people say no to almost everything.",a:"Warren Buffett",t:["patience","mental-models"]},
+        {q:"Someone's sitting in the shade today because someone planted a tree a long time ago.",a:"Warren Buffett",t:["compounding","patience"]},
+        {q:"It takes 20 years to build a reputation and five minutes to ruin it.",a:"Warren Buffett",t:["risk","compounding"]},
+        {q:"I try to buy stock in businesses that are so wonderful that an idiot can run them. Because sooner or later, one will.",a:"Warren Buffett",t:["moat","value"]},
+        {q:"You only have to do a very few things right in your life so long as you don't do too many things wrong.",a:"Warren Buffett",t:["mistakes","mental-models"]},
+        {q:"The investor of today does not profit from yesterday's growth.",a:"Warren Buffett",t:["value","market"]},
+        {q:"Opportunities come infrequently. When it rains gold, put out the bucket, not the thimble.",a:"Warren Buffett",t:["patience","temperament"]},
+        {q:"What the wise do in the beginning, fools do in the end.",a:"Warren Buffett",t:["market","temperament"]},
+        // Charlie Munger (20)
+        {q:"Invert, always invert: Turn a situation or problem upside down. Look at it backward.",a:"Charlie Munger",t:["mental-models"]},
+        {q:"It is remarkable how much long-term advantage people like us have gotten by trying to be consistently not stupid, instead of trying to be very intelligent.",a:"Charlie Munger",t:["mental-models","mistakes"]},
+        {q:"The big money is not in the buying and the selling, but in the waiting.",a:"Charlie Munger",t:["patience","compounding"]},
+        {q:"Knowing what you don't know is more useful than being brilliant.",a:"Charlie Munger",t:["mental-models","risk"]},
+        {q:"A great business at a fair price is superior to a fair business at a great price.",a:"Charlie Munger",t:["value","moat"]},
+        {q:"All I want to know is where I'm going to die, so I'll never go there.",a:"Charlie Munger",t:["mental-models","risk"]},
+        {q:"The first rule of compounding: Never interrupt it unnecessarily.",a:"Charlie Munger",t:["compounding"]},
+        {q:"Show me the incentive and I'll show you the outcome.",a:"Charlie Munger",t:["mental-models"]},
+        {q:"Spend each day trying to be a little wiser than you were when you woke up.",a:"Charlie Munger",t:["compounding","mental-models"]},
+        {q:"We've really made the money out of high-quality businesses. In some cases, we bought the whole business. And in some cases, we just bought a big block of stock. But when you analyze what happened, the big money's been made in the high-quality businesses.",a:"Charlie Munger",t:["value","moat"]},
+        {q:"The best thing a human being can do is to help another human being know more.",a:"Charlie Munger",t:["mental-models"]},
+        {q:"Take a simple idea and take it seriously.",a:"Charlie Munger",t:["mental-models"]},
+        {q:"You don't have to be brilliant, only a little bit wiser than the other guys, on average, for a long, long time.",a:"Charlie Munger",t:["compounding","patience"]},
+        {q:"Mimicking the herd invites regression to the mean.",a:"Charlie Munger",t:["market","mental-models"]},
+        {q:"Those who keep learning, will keep rising in life.",a:"Charlie Munger",t:["compounding"]},
+        {q:"Acknowledging what you don't know is the dawning of wisdom.",a:"Charlie Munger",t:["mental-models","risk"]},
+        {q:"I never allow myself to have an opinion on anything that I don't know the other side's argument better than they do.",a:"Charlie Munger",t:["mental-models","temperament"]},
+        {q:"People calculate too much and think too little.",a:"Charlie Munger",t:["mental-models","temperament"]},
+        {q:"If you want to get smart, the question you have to keep asking is 'why, why, why?'",a:"Charlie Munger",t:["mental-models"]},
+        {q:"In my whole life, I have known no wise people who didn't read all the time - none, zero.",a:"Charlie Munger",t:["compounding","mental-models"]},
+        // Benjamin Graham (12)
+        {q:"In the short run, the market is a voting machine but in the long run, it is a weighing machine.",a:"Benjamin Graham",t:["market","value"]},
+        {q:"The intelligent investor is a realist who sells to optimists and buys from pessimists.",a:"Benjamin Graham",t:["temperament","market"]},
+        {q:"The margin of safety is always dependent on the price paid.",a:"Benjamin Graham",t:["value","risk"]},
+        {q:"The investor's chief problem - and even his worst enemy - is likely to be himself.",a:"Benjamin Graham",t:["temperament","mistakes"]},
+        {q:"Have the courage of your knowledge and experience. If you have formed a conclusion from the facts and if you know your judgment is sound, act on it.",a:"Benjamin Graham",t:["temperament"]},
+        {q:"Those who do not remember the past are condemned to repeat it.",a:"Benjamin Graham",t:["market","mistakes"]},
+        {q:"To achieve satisfactory investment results is easier than most people realize; to achieve superior results is harder than it looks.",a:"Benjamin Graham",t:["value","mistakes"]},
+        {q:"The purpose of the margin of safety is to render the forecast unnecessary.",a:"Benjamin Graham",t:["risk","value"]},
+        {q:"Confronted with a like challenge to distill the secret of sound investment into three words, we venture the motto, MARGIN OF SAFETY.",a:"Benjamin Graham",t:["risk","value"]},
+        {q:"An investment operation is one which, upon thorough analysis, promises safety of principal and an adequate return.",a:"Benjamin Graham",t:["value"]},
+        {q:"You are neither right nor wrong because the crowd disagrees with you. You are right because your data and reasoning are right.",a:"Benjamin Graham",t:["temperament","mental-models"]},
+        {q:"The individual investor should act consistently as an investor and not as a speculator.",a:"Benjamin Graham",t:["temperament","patience"]},
+        // Ray Dalio (12)
+        {q:"Pain + Reflection = Progress.",a:"Ray Dalio",t:["mistakes","mental-models"]},
+        {q:"He who lives by the crystal ball will eat shattered glass.",a:"Ray Dalio",t:["risk","market"]},
+        {q:"The biggest mistake investors make is to believe that what happened in the recent past is likely to persist.",a:"Ray Dalio",t:["market","mistakes"]},
+        {q:"Don't let fears of what others might think of you stand in your way.",a:"Ray Dalio",t:["temperament"]},
+        {q:"If you're not failing, you're not pushing your limits, and if you're not pushing your limits, you're not maximizing your potential.",a:"Ray Dalio",t:["mistakes"]},
+        {q:"I learned that if you work hard and creatively, you can have just about anything you want, but not everything you want.",a:"Ray Dalio",t:["patience"]},
+        {q:"Truth - or, more precisely, an accurate understanding of reality - is the essential foundation for any good outcome.",a:"Ray Dalio",t:["mental-models"]},
+        {q:"Diversifying well is the most important thing you need to do in order to invest well.",a:"Ray Dalio",t:["risk"]},
+        {q:"Every time I observe something in the world that seems at odds with what I think, I consider whether my thinking is wrong.",a:"Ray Dalio",t:["mental-models","mistakes"]},
+        {q:"Principles are fundamental truths that serve as the foundations for behavior that gets you what you want out of life.",a:"Ray Dalio",t:["mental-models"]},
+        {q:"Maturity is the ability to reject good alternatives in order to pursue even better ones.",a:"Ray Dalio",t:["patience","mental-models"]},
+        {q:"Don't worry about looking good - worry about achieving your goals.",a:"Ray Dalio",t:["temperament"]},
+        // Howard Marks (10)
+        {q:"The most important thing is being attentive to cycles.",a:"Howard Marks",t:["market"]},
+        {q:"Experience is what you got when you didn't get what you wanted.",a:"Howard Marks",t:["mistakes"]},
+        {q:"You can't predict. You can prepare.",a:"Howard Marks",t:["risk","mental-models"]},
+        {q:"The biggest investing errors come not from factors that are informational or analytical, but from those that are psychological.",a:"Howard Marks",t:["temperament","mistakes"]},
+        {q:"Being too far ahead of your time is indistinguishable from being wrong.",a:"Howard Marks",t:["patience","market"]},
+        {q:"There are two kinds of forecasters: those who don't know, and those who don't know they don't know.",a:"Howard Marks",t:["risk","mental-models"]},
+        {q:"Investment success doesn't come from buying good things, but rather from buying things well.",a:"Howard Marks",t:["value"]},
+        {q:"The most dangerous thing is to buy something at the peak of its popularity.",a:"Howard Marks",t:["market","risk"]},
+        {q:"Risk means more things can happen than will happen.",a:"Howard Marks",t:["risk"]},
+        {q:"Skepticism and pessimism aren't synonymous. Skepticism calls for pessimism when optimism is excessive.",a:"Howard Marks",t:["temperament","market"]},
+        // Peter Lynch (8)
+        {q:"Know what you own, and know why you own it.",a:"Peter Lynch",t:["value","mental-models"]},
+        {q:"Go for a business that any idiot can run - because sooner or later, any idiot probably is going to run it.",a:"Peter Lynch",t:["moat"]},
+        {q:"The person that turns over the most rocks wins the game.",a:"Peter Lynch",t:["value","patience"]},
+        {q:"Far more money has been lost by investors preparing for corrections, or trying to anticipate corrections, than has been lost in corrections themselves.",a:"Peter Lynch",t:["market","patience"]},
+        {q:"In this business, if you're good, you're right six times out of ten.",a:"Peter Lynch",t:["mistakes","risk"]},
+        {q:"Investing without research is like playing stud poker and never looking at the cards.",a:"Peter Lynch",t:["value","mental-models"]},
+        {q:"Everyone has the brainpower to follow the stock market. If you made it through fifth-grade math, you can do it.",a:"Peter Lynch",t:["temperament"]},
+        {q:"The key to making money in stocks is not to get scared out of them.",a:"Peter Lynch",t:["temperament","patience"]},
+        // Seth Klarman (6)
+        {q:"The stock market is the story of cycles and of the human behavior that is responsible for overreactions in both directions.",a:"Seth Klarman",t:["market","temperament"]},
+        {q:"Value investing is at its core the marriage of a contrarian streak and a calculator.",a:"Seth Klarman",t:["value","temperament"]},
+        {q:"Investors should always keep in mind that the most important metric is not the returns achieved but the returns weighed against the risks incurred.",a:"Seth Klarman",t:["risk","value"]},
+        {q:"The availability of a cheap stock does not mean it should be purchased, because it might get cheaper.",a:"Seth Klarman",t:["value","patience"]},
+        {q:"At the root of all financial bubbles is a good idea carried to excess.",a:"Seth Klarman",t:["market","risk"]},
+        {q:"Most investors are primarily oriented toward return, how much they can make and pay little attention to risk, how much they can lose.",a:"Seth Klarman",t:["risk"]},
+        // Philip Fisher (5)
+        {q:"I don't want a lot of good investments; I want a few outstanding ones.",a:"Philip Fisher",t:["value","patience"]},
+        {q:"The stock market is filled with individuals who know the price of everything, but the value of nothing.",a:"Philip Fisher",t:["value","market"]},
+        {q:"I have always believed that the chief difference between a fool and a wise man is that the wise man learns from his mistakes, while the fool never does.",a:"Philip Fisher",t:["mistakes","mental-models"]},
+        {q:"Conservative investors sleep well.",a:"Philip Fisher",t:["risk","temperament"]},
+        {q:"Is the company's research and development effort in proportion to the growth they seek?",a:"Philip Fisher",t:["value","moat"]},
+        // John Templeton (5)
+        {q:"The four most dangerous words in investing are: 'This time it's different.'",a:"John Templeton",t:["market","mistakes"]},
+        {q:"Bull markets are born on pessimism, grow on skepticism, mature on optimism, and die on euphoria.",a:"John Templeton",t:["market"]},
+        {q:"To buy when others are despondently selling and to sell when others are avidly buying requires the greatest fortitude and pays the greatest reward.",a:"John Templeton",t:["temperament","market"]},
+        {q:"If you want to have a better performance than the crowd, you must do things differently from the crowd.",a:"John Templeton",t:["temperament"]},
+        {q:"The time of maximum pessimism is the best time to buy, and the time of maximum optimism is the best time to sell.",a:"John Templeton",t:["market","temperament"]}
+    ];
+
+    let activeTag = 'all';
+
+    function filterByTag(tag) {
+        activeTag = tag;
+        document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`[data-tag="${tag}"]`).classList.add('active');
+        filterQuotes();
+    }
+
+    function filterQuotes() {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const author = document.getElementById('authorFilter').value;
+
+        const filtered = quotes.filter(q => {
+            const matchTag = activeTag === 'all' || q.t.includes(activeTag);
+            const matchAuthor = author === 'all' || q.a === author;
+            const matchSearch = !search || q.q.toLowerCase().includes(search) || q.a.toLowerCase().includes(search) || q.t.some(t => t.includes(search));
+            return matchTag && matchAuthor && matchSearch;
+        });
+
+        document.getElementById('quoteCount').textContent = filtered.length;
+
+        const grid = document.getElementById('quotesGrid');
+        if (filtered.length === 0) {
+            grid.innerHTML = '<div class="col-span-2 text-center py-12 text-gray-400">No quotes match your filters.</div>';
+            return;
+        }
+
+        grid.innerHTML = filtered.map(q => {
+            const keepruleUrl = q.a === 'Warren Buffett' || q.a === 'Charlie Munger' || q.a === 'Benjamin Graham'
+                ? 'https://keeprule.com/en/masters'
+                : q.a === 'Ray Dalio' || q.a === 'Howard Marks'
+                ? 'https://keeprule.com/en/masters'
+                : 'https://keeprule.com/en/principles';
+            return `
+            <div class="quote-card bg-white rounded-xl border border-gray-200 p-5">
+                <blockquote class="text-sm leading-relaxed text-gray-700 mb-3">"${q.q}"</blockquote>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-gray-900">&mdash; ${q.a}</span>
+                    <a href="${keepruleUrl}" class="text-xs text-accent hover:underline" target="_blank" rel="noopener">More on KeepRule</a>
+                </div>
+                <div class="flex flex-wrap gap-1 mt-2">
+                    ${q.t.map(t => `<span class="text-xs bg-amber-50 text-amber-700 px-2 py-0.5 rounded-full cursor-pointer" onclick="filterByTag('${t}')">${t}</span>`).join('')}
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    filterQuotes();
+    </script>
+</body>
+</html>
